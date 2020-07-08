@@ -5,45 +5,42 @@ import (
 	"testing"
 )
 
-func TestIPAddress(t *testing.T) {
+func TestIPv4Network(t *testing.T) {
 
-	r := newIPAddress()
+	r := newIPv4Network()
 
 	{
-		str := "0.0.0.0"
+		str := "0.0.0.0/0"
 		match := r.match(str)
 		fmt.Println(match)
 		if len(match) != 1 {
 			t.Errorf("got %v\nwant %v", len(match), 1)
-		}
-		if match[0] != str {
+		} else if match[0] != str {
 			t.Errorf("got %v\nwant %v", match[0], str)
 		}
 	}
 	{
-		str := "255.255.255.255"
+		str := "255.255.255.255/32"
 		match := r.match(str)
 		fmt.Println(match)
 		if len(match) != 1 {
 			t.Errorf("got %v\nwant %v", len(match), 1)
-		}
-		if match[0] != str {
+		} else if match[0] != str {
 			t.Errorf("got %v\nwant %v", match[0], str)
 		}
 	}
 	{
-		str := "192.168.1.10"
+		str := "192.168.1.10/24"
 		match := r.match(str)
 		fmt.Println(match)
 		if len(match) != 1 {
 			t.Errorf("got %v\nwant %v", len(match), 1)
-		}
-		if match[0] != str {
+		} else if match[0] != str {
 			t.Errorf("got %v\nwant %v", match[0], str)
 		}
 	}
 	{
-		str := "192.168.1.0/24"
+		str := "192.168.1.0"
 		match := r.match(str)
 		fmt.Println(match)
 		if len(match) != 0 {
